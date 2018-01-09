@@ -8,7 +8,15 @@ class View {
   template () { throw new Error('Erro de template')}
 
   update(model) {
-    this._element.innerHTML = this.template(model) ;
+
+
+
+    // this._element.innerHTML = this.template(model) ;
+    this._element.appendChild(this.template(model));
+
+
+
+
 
   }
 

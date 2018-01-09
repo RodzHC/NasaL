@@ -29,24 +29,51 @@ $("#submit-button").on("click", function(event){
 
   function lidaResposta () {
 
-    var resposta = JSON.parse(xhr.responseText) ;
+    var resposta = JSON.parse(xhr.responseText).collection.items.map ( n =>
+      n.href ) ;
 
-    let divRender = document.querySelector('#image-render') ;
+    for (var i = 0; i < resposta.length; i++) {
+      var divRender = document.getElementById("image-reder");
+      var request = new XMLHttpRequest() ;
+      request.open("GET",resposta[i], true ) ;
+      request.send() ;
 
-    let resp2 = resposta.collection.items
-    let resp3 = resp2.map(function(n){
-
-      
+      request.addEventListener("load", function(n){
 
 
-    });
+      let regex = /http:[^\s]+medium\.jpg/g ;
+      var result = regex.exec(n.target.responseText);
+      console.log(result[0]);
+
+      if(result[0] != null ){
+      let render = new imageRender (divRender) ;
+      render.update (result[0]);
+}
+
+      }, false) ;
+
+
+
+
+    }
+
+
+
+    var divRender = document.querySelector('#image-render') ;
+
+    // var resp2 = resposta.collection.items
+    //
+    // var resp3 = resp2.map(function(n){
+    //   return n.href ;
+
+
+
     // let teste = new imageRender (divRender)  ;
     //
     // teste.update("Menino");
 
 
-    console.log(resposta);
-    console.log (resp2);
+
 
   }
 
